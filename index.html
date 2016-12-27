@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="style.css" media="screen" title="no title">
+  <title>World and State Capitals</title>
+</head>
+<body>
+ <div class="container">
+
+   <section id="start_quiz">
+     <h1>World Capitals Quiz!</h1>
+     <h4>Enter if you dare!</h4>
+     <button id="begin_quiz">BEGIN QUIZ</button>
+  </section>
+
+   <section id = 'quiz_section' class ='quiz_box hidden'>
+    <h1 id='response'></h1>
+    <p  id='silly_remark'></p>
+    <h4 class='corrected-answer'></h4>
+    <h3 class='question_text'></h3>
+    <form class='question_choices'></form>
+    <button class='next_question'>Submit</button>
+    <h3 class='current_question_number'></h3>
+    <h3 class='correct_answers'></h3>
+  </section>
+
+  <section class='question_results hidden'>
+    <h1 class='main_message'></h1>
+    <h4 class='silly_saying'></h4>
+    <h4 class='correct-response'></h4>
+  </section>
+
+  <section id='final_results' class='hidden'>
+    <h3 class='correct_answers'></h3>
+    <button class="start-over">Play Again?</button>
+  </section>
+
+  </div>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+</body>
+</html>
