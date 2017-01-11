@@ -7,9 +7,9 @@ var state = {
    },
 
    {
-     question: 'What is the capital of the USA?',
-     choices: ['Bombay', 'Washington\ DC', 'Ottowa', 'Rio\ De\ Janiero'],
-     answer: 'Washington\ DC',
+     question: 'What is the capital of Mongolia?',
+     choices: ['Ulaanbatar', 'Minsk', 'Ottowa', 'Rio\ De\ Janiero'],
+     answer: 'Ulaanbatar',
    },
 
    {
@@ -77,10 +77,12 @@ $(document).ready(function (event) {
     $('#question_tracker').removeClass('hidden');
   });
 
+
   renderState(state);
+
 });
 
-$('.next_question').on('click', function(event) {
+  $('.next_question').on('click', function(event) {
 
   var currentQuestion = state.questions[state.current_question_index];
   var selectedAnswer = $('input[name=quiz]:checked').val();
@@ -91,14 +93,17 @@ $('.next_question').on('click', function(event) {
   if (selectedAnswer === undefined) {
     alert('You have to at least make a guess');
   } else if (selectedAnswer === correctAnswer){
-    $('#response').text("smarty pants");
-    $('#silly_remark').text('Even a blind squirrel finds a nut every once in awhile.');
+    // $('#response').text("smarty pants");
+    // $('#silly_remark').text('Even a blind squirrel finds a nut every once in awhile.');
+    displayCorrectQuestionResponse(state);
     updateCorrectAnswer(state);
   }  else {
-    $('#response').text("BRRRRUUUUHHHH!!!! Come on!");
-    $('#silly_remark').text('Have you ever looked at a map before?');
-    $('.corrected-answer').text('Sorry, the correct answer is ' + currentQuestion.answer);
+    // $('#response').text("BRRRRUUUUHHHH!!!! Come on!");
+    // $('#silly_remark').text('Have you ever looked at a map before?');
+    // $('.corrected-answer').text('Sorry, the correct answer is ' + currentQuestion.answer);
+    displayIncorrectQuestionResponse(state);
   }
+
 
   if (selectedAnswer !== undefined) {
     if (state.question_number === state.questions.length) {
@@ -106,17 +111,22 @@ $('.next_question').on('click', function(event) {
       resetQuiz(state);
       // playAgain(state);
     } else {
-      updateQuestionIndex(state);
-      $('.question_choices').empty();
-      updateQuestionNumber(state);
-      renderState(state);
+      updateQuestion(state);
     }
   }
+
+  $('.continue').on('click', function(event) {
+     $('.question_results').addClass('hidden');
+     $('#quiz_section').removeClass('hidden');
+     $('.correct-response').empty();
+     // updateQuestion(state);
+  });
+
 
   $('.start-over').on('click', function(event) {
     playAgain(state);
   });
-});
+ });
 
 function renderState(state) {
   var question = $('.question_text');
@@ -132,6 +142,13 @@ function renderState(state) {
   }
   $('.current_question_number').text('Question: ' + state.question_number + ' of ' + state.questions.length);
   $('.correct_answers').text('You have: ' + state.questions_answered_correctly + ' question(s) correct');
+}
+
+function updateQuestion(state) {
+  updateQuestionIndex(state);
+  $('.question_choices').empty();
+  updateQuestionNumber(state);
+  renderState(state);
 }
 
 
@@ -154,12 +171,26 @@ function resetQuiz(state) {
   $('.question_choices').empty();
   $('#response').empty();
   $('#silly_remark').empty();
+  $('.corrected-answer').empty();
+}
+
+function displayCorrectQuestionResponse(state) {
+  $('.question_results').removeClass('hidden');
+  $('#quiz_section').addClass('hidden');
+  $('.main_message').text('Good Job!');
+}
+
+function displayIncorrectQuestionResponse(state) {
+  $('.question_results').removeClass('hidden');
+  $('#quiz_section').addClass('hidden');
+  $('.main_message').text('You suck!');
+  $('.correct-response').text('The correct answer is: ' + state.questions[state.current_question_index].answer);
 }
 
 function displayResultsPage(state) {
   $('#quiz_section').addClass('hidden');
   $('#final_results').removeClass('hidden');
-  $('.correct_answers').text('You got: ' + state.questions_answered_correctly + ' question(s) correct');
+  $('.correct_response').text('You got: ' + state.questions_answered_correctly + ' question(s) correct');
 }
 
 function playAgain(state) {

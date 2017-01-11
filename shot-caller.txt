@@ -1,0 +1,8 @@
+When the user submits an answer...
+  if answer == correct
+    display correctResults page
+  else
+    display incorrectResults page
+
+  when the user clicks next_question
+    results page is hidden && quiz_section page resumes
